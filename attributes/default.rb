@@ -25,6 +25,7 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
+default['zabbix']['agent']['package_name']      = 'zabbix-agent'
 default['zabbix']['agent']['version']           = '3.0.29'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
@@ -105,6 +106,7 @@ version      = node['zabbix']['agent']['version']
 tar          = "zabbix-#{version}.tar.gz"
 default['zabbix']['agent']['source_url'] = "#{download_url}/#{branch}/#{version}/#{tar}"
 default['zabbix']['agent']['tar_file'] = tar
+default['zabbix']['agent']['rpm'] = 'https://repo.zabbix.com/zabbix/6.4/rhel/9/x86_64/zabbix-release-6.4-1.el9.noarch.rpm'
 
 # package install
 case node['platform_family']

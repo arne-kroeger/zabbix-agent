@@ -10,7 +10,7 @@
 case node['platform_family']
 when 'windows'
   include_recipe 'chocolatey'
-  chocolatey_package 'zabbix-agent'
+  chocolatey_package node['zabbix']['agent']['package_name']
 when 'debian'
   apt_repository 'zabbix' do
     uri node['zabbix']['agent']['package']['repo_uri']
@@ -18,7 +18,7 @@ when 'debian'
     key node['zabbix']['agent']['package']['repo_key']
   end
 
-  package 'zabbix-agent' do
+  package node['zabbix']['agent']['package_name'] do
     options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
     action :upgrade
   end
@@ -41,7 +41,7 @@ when 'rhel', 'amazon', 'fedora'
     action :create
   end
 
-  package 'zabbix-agent' do
+  package node['zabbix']['agent']['package_name'] do
     action :upgrade
   end
 end

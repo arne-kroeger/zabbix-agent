@@ -18,7 +18,7 @@ template 'zabbix_agentd.conf' do
     mode '644'
   end
   variables config: node['zabbix']['agent']['conf']
-  notifies :restart, 'service[zabbix-agent]'
+  notifies :restart, 'service[' + node['zabbix']['agent']['package_name'] + ']'
 end
 
 # Install optional additional agent config file containing UserParameter(s)
@@ -30,6 +30,6 @@ template 'user_params.conf' do
     group 'root'
     mode '644'
   end
-  notifies :restart, 'service[zabbix-agent]'
+  notifies :restart, 'service[' + node['zabbix']['agent']['package_name'] + ']'
   not_if { node['zabbix']['agent']['user_parameter'].empty? }
 end

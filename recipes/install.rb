@@ -70,7 +70,7 @@ else
     owner 'root'
     group 'root'
     mode '755'
-    notifies :restart, 'service[zabbix-agent]'
+    notifies :restart, 'service[' + node['zabbix']['agent']['package_name'] + ']'
   end
 end
 

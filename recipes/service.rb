@@ -31,10 +31,10 @@ when 'systemd'
     owner 'root'
     group 'root'
     mode '644'
-    not_if { node['zabbix']['agent']['install_method'] == 'package' }
+    not_if { node['zabbix']['agent']['install_method'] == 'package' || node['zabbix']['agent']['install_method'] == 'rpm' }
   end
 
-  service 'zabbix-agent' do
+  service node['zabbix']['agent']['package_name'] do
     pattern 'zabbix_agentd'
     supports status: true, start: true, stop: true, restart: true
     action %i(enable start)
@@ -42,7 +42,7 @@ when 'systemd'
   # when 'upstart'
   #   upstart.conf
 when 'windows'
-  service 'zabbix-agent' do
+  service node['zabbix']['agent']['package_name'] do
     service_name 'Zabbix Agent'
     provider Chef::Provider::Service::Windows
     supports restart: true
@@ -50,7 +50,7 @@ when 'windows'
   end
 else
   # Define just the zabbix-agent service
-  service 'zabbix-agent' do
+  service node['zabbix']['agent']['package_name'] do
     pattern 'zabbix_agentd'
     supports status: true, start: true, stop: true, restart: true
     action %i(enable start)
