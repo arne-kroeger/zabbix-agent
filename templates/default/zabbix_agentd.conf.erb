@@ -2,6 +2,12 @@
 # Created by chef zabbix-agent::configure
 <% @config.each do |name, value| %>
 <%   unless value == nil %>
-<%=    name %>=<%= value %>
+<%     if value.respond_to?('each') %>
+<%       value.each do |index, subValue| %>
+<%=        name %>=<%= subValue %>
+<%       end %>
+<%     else %>
+<%=      name %>=<%= value %>
+<%     end %>
 <%   end %>
 <% end %>
