@@ -4,7 +4,7 @@ remote_file Chef::Config[:file_cache_path] + '/zabbix-repo.rpm' do
 end
 
 rpm_package 'zabbix' do
-  source'/tmp/zabbix-repo.rpm'
+  source Chef::Config[:file_cache_path] + '/zabbix-repo.rpm'
   action :install
 end
 
