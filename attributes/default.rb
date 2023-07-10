@@ -25,8 +25,9 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
-default['zabbix']['agent']['package_name']      = 'zabbix-agent'
-default['zabbix']['agent']['version']           = '3.0.29'
+default['zabbix']['agent']['package_name']      = 'zabbix-agent2'
+default['zabbix']['agent']['version']           = '6.4-1'
+default['zabbix']['agent']['base-version']      = '6.4'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
@@ -104,9 +105,10 @@ download_url = 'http://downloads.sourceforge.net/project/zabbix/'
 branch       = 'ZABBIX%20Latest%20Stable'
 version      = node['zabbix']['agent']['version']
 tar          = "zabbix-#{version}.tar.gz"
+default['zabbix']['agent']['arch'] = 'x86_64'
 default['zabbix']['agent']['source_url'] = "#{download_url}/#{branch}/#{version}/#{tar}"
 default['zabbix']['agent']['tar_file'] = tar
-default['zabbix']['agent']['rpm'] = 'https://repo.zabbix.com/zabbix/6.4/rhel/9/x86_64/zabbix-release-6.4-1.el9.noarch.rpm'
+default['zabbix']['agent']['rpm'] = "https://repo.zabbix.com/zabbix/#{node['zabbix']['agent']['base-version']}/rhel/#{node['platform_version'].to_i}/#{default['zabbix']['agent']['arch']}/zabbix-release-#{node['zabbix']['agent']['version']}.el#{node['platform_version'].to_i}.noarch.rpm"
 
 # package install
 case node['platform_family']
